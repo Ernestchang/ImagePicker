@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.text.format.Formatter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
@@ -55,7 +54,7 @@ public class ImagePreviewActivity extends ImagePreviewBaseActivity implements Im
         mCbCheck = (SuperCheckBox) findViewById(R.id.cb_check);
         mCbOrigin = (SuperCheckBox) findViewById(R.id.cb_origin);
         marginView = findViewById(R.id.margin_bottom);
-        mCbOrigin.setText(getString(R.string.ip_origin));
+        mCbOrigin.setVisibility(View.VISIBLE);
         mCbOrigin.setOnCheckedChangeListener(this);
         mCbOrigin.setChecked(isOrigin);
 
@@ -123,7 +122,6 @@ public class ImagePreviewActivity extends ImagePreviewBaseActivity implements Im
     }
 
 
-
     /**
      * 图片添加成功后，修改当前图片的选中数量
      * 当调用 addSelectedImageItem 或 deleteSelectedImageItem 都会触发当前回调
@@ -136,13 +134,13 @@ public class ImagePreviewActivity extends ImagePreviewBaseActivity implements Im
             mBtnOk.setText(getString(R.string.ip_complete));
         }
 
-        if (mCbOrigin.isChecked()) {
-            long size = 0;
-            for (ImageItem imageItem : selectedImages)
-                size += imageItem.size;
-            String fileSize = Formatter.formatFileSize(this, size);
-            mCbOrigin.setText(getString(R.string.ip_origin_size, fileSize));
-        }
+//        if (mCbOrigin.isChecked()) {
+//            long size = 0;
+//            for (ImageItem imageItem : selectedImages)
+//                size += imageItem.size;
+//            String fileSize = Formatter.formatFileSize(this, size);
+//            mCbOrigin.setText(getString(R.string.ip_origin_size, fileSize));
+//        }
     }
 
     @Override
@@ -156,6 +154,7 @@ public class ImagePreviewActivity extends ImagePreviewBaseActivity implements Im
             }
             Intent intent = new Intent();
             intent.putExtra(ImagePicker.EXTRA_RESULT_ITEMS, imagePicker.getSelectedImages());
+            intent.putExtra(ImagePreviewActivity.ISORIGIN, isOrigin);
             setResult(ImagePicker.RESULT_CODE_ITEMS, intent);
             finish();
 
@@ -181,15 +180,15 @@ public class ImagePreviewActivity extends ImagePreviewBaseActivity implements Im
         int id = buttonView.getId();
         if (id == R.id.cb_origin) {
             if (isChecked) {
-                long size = 0;
-                for (ImageItem item : selectedImages)
-                    size += item.size;
-                String fileSize = Formatter.formatFileSize(this, size);
+//                long size = 0;
+//                for (ImageItem item : selectedImages)
+//                    size += item.size;
+//                String fileSize = Formatter.formatFileSize(this, size);
                 isOrigin = true;
-                mCbOrigin.setText(getString(R.string.ip_origin_size, fileSize));
+//                mCbOrigin.setText(getString(R.string.ip_origin_size, fileSize));
             } else {
                 isOrigin = false;
-                mCbOrigin.setText(getString(R.string.ip_origin));
+//                mCbOrigin.setText(getString(R.string.ip_origin));
             }
         }
     }

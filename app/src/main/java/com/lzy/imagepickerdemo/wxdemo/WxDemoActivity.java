@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.lzy.imagepicker.ui.ImagePreviewActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.lzy.imagepickerdemo.R;
@@ -148,6 +150,8 @@ public class WxDemoActivity extends AppCompatActivity implements ImagePickerAdap
             //添加图片返回
             if (data != null && requestCode == REQUEST_CODE_SELECT) {
                 images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                boolean isOrigin = data.getBooleanExtra(ImagePreviewActivity.ISORIGIN, false);
+                Log.e("ernest", "isOrigin:" + isOrigin);
                 if (images != null) {
                     selImageList.addAll(images);
                     adapter.setImages(selImageList);

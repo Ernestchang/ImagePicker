@@ -16,6 +16,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.lzy.imagepicker.DataHolder;
@@ -69,6 +71,7 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
     private boolean directPhoto = false; // 默认不是直接调取相机
     private RecyclerView mRecyclerView;
     private ImageRecyclerAdapter mRecyclerAdapter;
+    private CheckBox cbOrigin;
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -107,6 +110,7 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
         }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
+        cbOrigin = (CheckBox) findViewById(R.id.cb_origin);
 
         findViewById(R.id.btn_back).setOnClickListener(this);
         mBtnOk = (Button) findViewById(R.id.btn_ok);
@@ -124,6 +128,13 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
             mBtnOk.setVisibility(View.GONE);
             mBtnPre.setVisibility(View.GONE);
         }
+
+        cbOrigin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                isOrigin = b;
+            }
+        });
 
 //        mImageGridAdapter = new ImageGridAdapter(this, null);
         mImageFolderAdapter = new ImageFolderAdapter(this, null);
@@ -173,6 +184,7 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
             Intent intent = new Intent();
             intent.putExtra(ImagePicker.EXTRA_RESULT_ITEMS, imagePicker.getSelectedImages());
             setResult(ImagePicker.RESULT_CODE_ITEMS, intent);  //多选不允许裁剪裁剪，返回数据
+            intent.putExtra(ImagePreviewActivity.ISORIGIN, isOrigin);
             finish();
         } else if (id == R.id.ll_dir) {
             if (mImageFolders == null) {
@@ -314,8 +326,8 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && data.getExtras() != null) {
+            isOrigin = data.getBooleanExtra(ImagePreviewActivity.ISORIGIN, false);
             if (resultCode == ImagePicker.RESULT_CODE_BACK) {
-                isOrigin = data.getBooleanExtra(ImagePreviewActivity.ISORIGIN, false);
             } else {
                 //从拍照界面返回
                 //点击 X , 没有选择照片

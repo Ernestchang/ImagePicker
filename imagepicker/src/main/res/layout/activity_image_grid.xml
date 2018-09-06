@@ -62,6 +62,20 @@
 
             </RelativeLayout>
 
+            <CheckBox
+                android:id="@+id/cb_origin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:button="@drawable/selector_grid_origin_bg"
+                android:checked="false"
+                android:padding="4dp"
+                android:text="原图"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
 
             <TextView
                 android:id="@+id/btn_preview"

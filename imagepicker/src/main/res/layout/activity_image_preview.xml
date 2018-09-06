@@ -31,14 +31,19 @@
 
             <com.lzy.imagepicker.view.SuperCheckBox
                 android:id="@+id/cb_origin"
-                style="@style/SuperCheckboxTheme"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:paddingLeft="8dp"
-                android:text="原图(3.07M)"
-                android:textColor="#FFF"
-                android:visibility="invisible" />
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:button="@drawable/selector_grid_origin_bg"
+                android:checked="false"
+                android:padding="4dp"
+                android:text="原图"
+                android:textColor="#FFFFFF"
+                android:visibility="invisible"
+                android:textSize="16sp" />
+
 
             <com.lzy.imagepicker.view.SuperCheckBox
                 android:id="@+id/cb_check"
