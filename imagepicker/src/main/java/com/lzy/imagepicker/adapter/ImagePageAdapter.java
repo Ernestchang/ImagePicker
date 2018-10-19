@@ -1,6 +1,7 @@
 package com.lzy.imagepicker.adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -63,6 +64,7 @@ public class ImagePageAdapter extends PagerAdapter {
                 if (listener != null) listener.OnPhotoTapListener(view, x, y);
             }
         });
+        photoView.setBackgroundColor(Color.parseColor("#000000"));
         container.addView(photoView);
         return photoView;
     }
