@@ -55,6 +55,7 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
     public static final int REQUEST_PERMISSION_CAMERA = 0x02;
     public static final String EXTRAS_TAKE_PICKERS = "TAKE";
     public static final String EXTRAS_IMAGES = "IMAGES";
+    public static final String EXTRAS_SHOW_ORIGIN = "SHOW_ORIGIN";
 
     private ImagePicker imagePicker;
 
@@ -95,6 +96,10 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
         imagePicker.addOnImageSelectedListener(this);
 
         Intent data = getIntent();
+
+        boolean isShowOrigin = getIntent().getBooleanExtra(EXTRAS_SHOW_ORIGIN, false);
+        cbOrigin.setVisibility(isShowOrigin ? View.VISIBLE : View.INVISIBLE);
+
         // 新增可直接拍照
         if (data != null && data.getExtras() != null) {
             directPhoto = data.getBooleanExtra(EXTRAS_TAKE_PICKERS, false); // 默认不是直接打开相机

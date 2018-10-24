@@ -74,6 +74,7 @@
                 android:padding="4dp"
                 android:text="原图"
                 android:textColor="#FFFFFF"
+                android:visibility="invisible"
                 android:textSize="16sp" />
 
 
