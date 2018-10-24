@@ -100,6 +100,7 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
 
         Intent data = getIntent();
 
+        cbOrigin = (CheckBox) findViewById(R.id.cb_origin);
         // 新增可直接拍照
         if (data != null && data.getExtras() != null) {
             isShowOrigin = getIntent().getBooleanExtra(EXTRAS_SHOW_ORIGIN, false);
@@ -118,7 +119,6 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
         }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
-        cbOrigin = (CheckBox) findViewById(R.id.cb_origin);
 
         findViewById(R.id.btn_back).setOnClickListener(this);
         mBtnOk = (Button) findViewById(R.id.btn_ok);
