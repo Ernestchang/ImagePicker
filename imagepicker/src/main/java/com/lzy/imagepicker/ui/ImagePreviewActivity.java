@@ -43,6 +43,7 @@ public class ImagePreviewActivity extends ImagePreviewBaseActivity implements Im
         super.onCreate(savedInstanceState);
 
         isOrigin = getIntent().getBooleanExtra(ImagePreviewActivity.ISORIGIN, false);
+        boolean isShowOrigin = getIntent().getBooleanExtra(ImagePicker.EXTRAS_SHOW_ORIGIN, false);
         imagePicker.addOnImageSelectedListener(this);
         mBtnOk = (Button) findViewById(R.id.btn_ok);
         mBtnOk.setVisibility(View.VISIBLE);
@@ -54,7 +55,7 @@ public class ImagePreviewActivity extends ImagePreviewBaseActivity implements Im
         mCbCheck = (SuperCheckBox) findViewById(R.id.cb_check);
         mCbOrigin = (SuperCheckBox) findViewById(R.id.cb_origin);
         marginView = findViewById(R.id.margin_bottom);
-        mCbOrigin.setVisibility(View.VISIBLE);
+        mCbOrigin.setVisibility(isShowOrigin ? View.VISIBLE : View.INVISIBLE);
         mCbOrigin.setOnCheckedChangeListener(this);
         mCbOrigin.setChecked(isOrigin);
 

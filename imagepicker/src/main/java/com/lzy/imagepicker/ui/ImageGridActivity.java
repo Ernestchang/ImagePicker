@@ -36,6 +36,8 @@ import com.lzy.imagepicker.view.GridSpacingItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lzy.imagepicker.ImagePicker.EXTRAS_SHOW_ORIGIN;
+
 /**
  * ================================================
  * 作    者：jeasonlzy（廖子尧 Github地址：https://github.com/jeasonlzy0216
@@ -55,11 +57,12 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
     public static final int REQUEST_PERMISSION_CAMERA = 0x02;
     public static final String EXTRAS_TAKE_PICKERS = "TAKE";
     public static final String EXTRAS_IMAGES = "IMAGES";
-    public static final String EXTRAS_SHOW_ORIGIN = "SHOW_ORIGIN";
+
 
     private ImagePicker imagePicker;
 
     private boolean isOrigin = false;  //是否选中原图
+    private boolean isShowOrigin = false;  //是否显示原图选项
     private View mFooterBar;     //底部栏
     private Button mBtnOk;       //确定按钮
     private View mllDir; //文件夹切换按钮
@@ -97,11 +100,11 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
 
         Intent data = getIntent();
 
-        boolean isShowOrigin = getIntent().getBooleanExtra(EXTRAS_SHOW_ORIGIN, false);
-        cbOrigin.setVisibility(isShowOrigin ? View.VISIBLE : View.INVISIBLE);
-
         // 新增可直接拍照
         if (data != null && data.getExtras() != null) {
+            isShowOrigin = getIntent().getBooleanExtra(EXTRAS_SHOW_ORIGIN, false);
+            cbOrigin.setVisibility(isShowOrigin ? View.VISIBLE : View.INVISIBLE);
+
             directPhoto = data.getBooleanExtra(EXTRAS_TAKE_PICKERS, false); // 默认不是直接打开相机
             if (directPhoto) {
                 if (!(checkPermission(Manifest.permission.CAMERA))) {
@@ -213,6 +216,8 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
             intent.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, 0);
             intent.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, imagePicker.getSelectedImages());
             intent.putExtra(ImagePreviewActivity.ISORIGIN, isOrigin);
+            intent.putExtra(EXTRAS_SHOW_ORIGIN, isShowOrigin);
+
             intent.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
             startActivityForResult(intent, ImagePicker.REQUEST_CODE_PREVIEW);
         } else if (id == R.id.btn_back) {
@@ -282,6 +287,7 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
             // 但采用弱引用会导致预览弱引用直接返回空指针
             DataHolder.getInstance().save(DataHolder.DH_CURRENT_IMAGE_FOLDER_ITEMS, imagePicker.getCurrentImageFolderItems());
             intent.putExtra(ImagePreviewActivity.ISORIGIN, isOrigin);
+            intent.putExtra(EXTRAS_SHOW_ORIGIN, isShowOrigin);
             startActivityForResult(intent, ImagePicker.REQUEST_CODE_PREVIEW);  //如果是多选，点击图片进入预览界面
         } else {
             imagePicker.clearSelectedImages();
